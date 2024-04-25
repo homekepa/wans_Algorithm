@@ -4,11 +4,11 @@
 
 using namespace std;
 
-    int T, N;
-vector<int> A;
-vector<int> A_extend;
-vector<int> B;
-vector<int> B_extend;
+int T, N;
+long long cnt = 0;
+vector<int> A, A_extend;
+vector<int> B, B_extend;
+
 int main() {
     int num;
     
@@ -44,16 +44,16 @@ int main() {
     sort(B_extend.begin(), B_extend.end());
 
     // A_extend의 각 합에 대해, T에서 그 합을 뺀 값이 B_extend에 있는지 확인하고, 그 갯수를 카운트합니다.
-    long long count = 0;
+    
     for (int sum : A_extend) {
         int target = T - sum;
         auto lower = lower_bound(B_extend.begin(), B_extend.end(), target);
         auto upper = upper_bound(B_extend.begin(), B_extend.end(), target);
-        count += (upper - lower);
+        cnt += (upper - lower);
     }
 
     // 결과 출력
-    cout << count << endl;
+    cout << cnt << endl;
 
     return 0;
 }
