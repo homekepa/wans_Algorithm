@@ -6,16 +6,16 @@ unordered_map<string, string> um(200001);
 unordered_map<string, int> nums(200001);
 
 
-string find(string a) {
-	if (um[a] == a) {
-		return a;
-	}
-	else {
-		return um[a] = find(um[a]);
-	}
+string find(string tar) {
+	if (um[tar] == tar) return tar;
+	string ret = find(um[tar]);
+
+	//경로 압축
+	um[tar] = ret;
+	return ret;
 }
 
-void uni(string a, string b) {
+void set_union(string a, string b) {
 	string A = find(a);
 	string B = find(b);
 
@@ -25,15 +25,14 @@ void uni(string a, string b) {
 	nums[A] += nums[B];
 }
 
-int main(int argc, char** argv)
+int main()
 {
-
 	cin.tie(NULL);
 	ios_base::sync_with_stdio(false);
-	int tn;
-	cin >> tn;
+	int T;
+	cin >> T;
 
-	while (tn--) {
+	while (T--) {
 		int n;
 		cin >> n;
 
@@ -51,12 +50,9 @@ int main(int argc, char** argv)
 				um.insert(make_pair(b, b));
 				nums.insert(make_pair(b, 1));
 			}
-			uni(a, b);
-			cout << nums[find(a)] << '\n';
-
+			set_union(a, b);
+			cout << nums[find(a)] << "\n";
 		}
 	}
-
-
-
+	return 0;
 }
